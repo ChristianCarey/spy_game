@@ -1,4 +1,4 @@
-var locations = [ "pirate ship", "laundry room", "elevator","under water", "liquor store","art gallery", "playground", "helicopter", "deep in a cave", "marathon finish line", "wine tasting", "island nation", "classroom", "dentist's office", "sea cave", "Diner", "Beach House", "Space Station", "Log Cabin", "Luxury Cruise", "Airport", "An Igloo", "Barbershop", "Marijuana Dispensary", "The Great Wall of China", "Coca Cola Factory","Chipotle","Strip Club","The North Pole"];
+var locations = [ "pirate ship", "laundry room", "elevator","art gallery", "playground", "helicopter", "deep in a cave", "marathon finish line", "wine tasting", "island nation", "classroom", "dentist's office", "sea cave", "Diner", "Beach House", "Space Station", "Log Cabin", "Luxury Cruise", "Airport", "An Igloo", "Barbershop", "The Great Wall of China", "Coca Cola Factory","Chipotle","The North Pole"];
 var $mainContent = $('.main-content');
 var $button = $('.button')
 
