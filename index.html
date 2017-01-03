@@ -8,17 +8,49 @@
     <title>Spy Game</title>
   </head>
   <body>
-    <header>
-      <h1>Who's the spy?</h1>
-      <hr>
+  <header>
+      <h1>Find the spy!</h1>
+      <h2><a href="#" id="rules">Rules</a></h2>
     </header>
-    <div class="wrapper">
-      <div class="main-content"></div>
-      <div class="button"> 
-        <button id="begin">Begin</button>
+  <div class="flip-container">
+    <div class="flipper">
+      <div class="main-content front">
+        Select number of players:
+        <form id="num-players-form">
+          <div class="radio-button-container">
+            <input type="radio" id="3" name="num-players" value="3" />
+            <label for="3">3</label>
+          </div>
+          <div class="radio-button-container">
+            <input type="radio" id="4" name="num-players" value="4" />
+            <label for="4">4</label>
+          </div>
+          <div class="radio-button-container">
+            <input type="radio" id="5" name="num-players" value="5" />
+            <label for="5">5</label>
+          </div>
+          <div class="radio-button-container">
+            <input type="radio" id="6" name="num-players" value="6" />
+            <label for="6">6</label>
+          </div>
+          <div class="radio-button-container">
+            <input type="radio" id="7" name="num-players" value="7" />
+            <label for="7">7</label>
+          </div>
+          <div class="radio-button-container">
+            <input type="radio" id="8" name="num-players" value="8" />
+            <label for="8">8</label>
+          </div>
+        </form>
+      </div>
+      <div class="main-content back">
       </div>
     </div>
-    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script src="js/app.js"></script>
+  </div>
+  <div id="button-container"> 
+    <button id="begin">Begin</button>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="js/app.js"></script>
   </body>
 </html>
