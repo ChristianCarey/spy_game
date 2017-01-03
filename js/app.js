@@ -288,9 +288,27 @@ var clickHandlers = {
   restart: function() {
     gameState.resetCurrentPlayer();
     gameState.setLocationAndSpy();
-    $front.html(gameRenderer.begin_main_content());
+    $back.animate({
+      left: "-50"
+    }, 200, function(){
+      $(this).animate({
+        left: "+1000"
+      }, 700, function(){
+        $(this).html(gameRenderer.begin_main_content());
+        $(this).animate({
+          left: "-1000"
+        }, 0, function(){
+          $(this).animate({
+            left: '+50'
+          }, 700, function(){
+            $(this).animate({
+              left: '-0'
+            }, 200);
+          });
+        });
+      });
+    });
     $button.html(gameRenderer.begin_button_content());
-    gameRenderer.flip();
   },
 
   showRules: function(event) {
@@ -301,9 +319,9 @@ var clickHandlers = {
 
 var gameRenderer = {
   begin_main_content: function(){
-    var text = 'A location has been chosen. Only ';
+    var text = '<div class="main-text"><p>A location has been chosen.</p><p> Only ';
     text += gameState.numPlayers - 1;
-    text += ' of you are innocent...find the spy!';
+    text += ' of you are innocent...</p><h4>Find the spy!</h4>';
     return text;  
   },
 
@@ -315,21 +333,21 @@ var gameRenderer = {
     var location, role, instructions;
 
     if (gameState.currentLocationOrSpy() === 'spy') {
-      location = "Unknown Location",
-      role = "Spy!",
+      location = "<span class='bold'>Unknown Location</span>",
+      role = "<span class='bold'>Spy!</span>",
       instructions = "Listen carefully to determine where you are located, and try not to give away that you don't know where you are!"
     } else {
-      location = gameState.currentLocationOrSpy().location,
-      role = gameState.currentLocationOrSpy().role,
+      location = "<span class='bold'>" + gameState.currentLocationOrSpy().location + "</span>",
+      role = "<span class='bold'>" + gameState.currentLocationOrSpy().role + "</span>",
       instructions = "Ask questions to determine who is the spy, but try not to give your location away!"
     }
-    var text = "<p>You are in the: ";
+    var text = "<div><p>You are in the: ";
     text += location;
     text += "</p><p>You are the: ";
     text += role;
     text += "</p><p>";
     text += instructions;
-    text += "</p>";
+    text += "</p></div>";
     return text;
   },
 
@@ -339,9 +357,9 @@ var gameRenderer = {
 
   hide_main_content: function() {
     if (gameState.gameOver()) {
-      return '<p>Find the spy!</p>';
+      return '<h4 class="centered">Find the spy!</h4>';
     } else {
-      return "Pass the device the next player";
+      return "<p class='centered'>Pass the device the next player.</p>";
     }
   },
 
@@ -358,12 +376,34 @@ var gameRenderer = {
   },
 
   rules: function() {
-    $.ajax({
-      url: "/rules.html",
-      success : function(result) {
-        return result;
-      }
-    });
+    text = "<h3>How to play</h3>";
+    text += "<h4>Objective</h4>";
+    text += "<p>The spy must avoid being found, or deduce the location.</p>";
+    text += "<p>The non-spies must find and expose the spy.</p>";
+    text += "<h4>Setting up a round:</h4>";
+    text += "<p>First, choose 3 to 8 players and click \"begin\". Select a first player, and have them click \"show\" without letting other players see the screen. This will reveal the name of a location and a role. If the role revealed is \"Spy!\", no location is revealed. Without showing what was displayed, the current player then clicks \"hide,\" and passes the device to the player on their left. Repeat this until all players (except for the one spy) know the location. Start a timer for eight minutes and begin playing the round.</p>";
+    text += "<h4>Playing a round:</h4>";
+    text += "<p>Whoever saw their role last starts off the round by addressing another player by name and asking them a direct question. Any question can be asked, but they will generally be about the location. Only one question is allowed, and the other player can answer in any form, including not answering at all. Whomever was asked the question first now gets to ask a question. They can ask anyone except for the person who just asked them.</p>";
+    text += "<h4>Ending a round</h4>";
+    text += "<p>A round can end three different ways.<p>";
+    text +="<p>1. The time runs out</p>";
+    text +="<p>When the time runs out, each player gets to make an accusation, starting with the dealer. The accusser will select another player who they think is the spy. If ALL players agree (the accussed does not have to agree), then the accussed person reveals their role and the game ends. If not all players agree, the next player to the dealer's left gets to make an accusation. If a spy is never convicted in this way, then the spy wins.</p>";
+    text += "<p>2. A player is convicted early</p>";
+    text += "<p>Players don't have to wait until the time runs out to make an accusation. Each player may stop the clock once per round and accuse someone of being the spy. If everyone but the accused agrees, then the accused reveals their role and the game ends. NOTE: The spy can (and probably should) make an accusation in this way.</p>";
+    text += "<p>3. The spy guesses the location</p>";
+    text += "<p>If the round ended with a player being convicted, and that player was the spy, then the non-spies win. If that player was not the spy, then the spy wins.</p>";
+    text += "<h4>Scoring</h4>";
+    text += "<p>Spy Victory</p>";
+    text += "<p>1. The spy gets 2 points if the time runs out and no one is accused.</p>";
+    text += "<p>2. The spy gets 4 points if a non-spy is convicted.</p>";
+    text += "<p>3. The spy gets 4 points if they guess the location.</p>";
+    text += "<p>Non-spy victory:</p>";
+    text += "<p>1. Each player gets 1 point.</p>";
+    text += "<p>2. The player who initiated the successful accusation gets 2 points instead.</p>";
+    text += "<h4>End of Game:</h4>";
+    text += "<p>Play for as many rounds as you like (5 is recommended). Whoever has the most points once the rounds are up is the winner.</p>";
+
+    return text;
   }
 };
 
@@ -429,16 +469,15 @@ var modal = (function(){
     $content.empty().append(settings.content);
 
     $modal.css({
-      width: settings.width || 'auto', 
-      height: settings.height || 'auto'
+      width: settings.width || 'auto',
     })
 
     method.center();
 
     $(window).bind('resize.modal', method.center);
 
-    $modal.show();
-    $overlay.show();
+    $overlay.fadeIn(300);
+    $modal.fadeIn(500);
   };
 
   // Close the modal
@@ -451,6 +490,10 @@ var modal = (function(){
 
   $close.click(function(e){
     e.preventDefault();
+    method.close();
+  });
+
+  $overlay.click(function(){
     method.close();
   });
 
