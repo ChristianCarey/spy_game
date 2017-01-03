@@ -1,5 +1,5 @@
 # Find the Spy!
-A browser party game.
+A browser party game like no other.
 
 ### How to play:
 
