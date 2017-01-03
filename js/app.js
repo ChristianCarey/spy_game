@@ -497,5 +497,13 @@ var modal = (function(){
     method.close();
   });
 
+  $modal.click(function(){
+    method.close();
+  });
+
+  $content.click(function(){
+    method.close();
+  });
+
   return method;
 }());

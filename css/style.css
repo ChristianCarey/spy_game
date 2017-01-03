@@ -35,6 +35,31 @@ h2 {
 	color: #2B2D38;
 }
 
+#rules {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
+  margin-bottom: 12px;
+  padding: 10px 20px;
+  font-size: 14px;
+  background-color: #E7EAFC;
+  font-weight: bold;
+  color: #2d525d;
+  width: 140px;
+  height: 30px;
+  border: none;
+  border-radius: 2px;
+  -webkit-box-shadow: 6px 9px 25px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 6px 9px 25px 0px rgba(0,0,0,0.75);
+  box-shadow: 6px 9px 25px 0px rgba(0,0,0,0.75);
+  cursor: pointer;
+}
+
+#rules p {
+  margin: 0 auto;
+}
+
 header {
 	width: 30%;
 	margin: 0 auto;
@@ -94,7 +119,7 @@ button {
 	cursor: pointer;
 }
 
-button:active { 
+.button:active { 
 	transform:translate(3px, 3px);
 	-webkit-box-shadow: 2px 2px 25px 0px rgba(0,0,0,0.75);
   -moz-box-shadow: 2px 2px 25px 0px rgba(0,0,0,0.75);
@@ -187,16 +212,15 @@ input[type="radio"]:checked + label p {
 	position: fixed;
 	bottom: 0;
 	padding: 14px;
+  color: #333;
 }
 
-/* entire container, keeps perspective */
 .flip-container {
 	perspective: 1000px;
 	margin: 0 auto;
 	margin-bottom: 25px;
 }
 
-/* flip the pane when hovered */
 .flip-container.flip .flipper {
 	transform: rotateY(180deg);
 }
@@ -206,7 +230,6 @@ input[type="radio"]:checked + label p {
 	height: 400px;
 }
 
-/* flip speed goes here */
 .flipper {
 	transition: 0.6s;
 	transform-style: preserve-3d;
@@ -214,7 +237,6 @@ input[type="radio"]:checked + label p {
 	position: relative;
 }
 
-/* hide back of pane during swap */
 .front, .back {
 	backface-visibility: hidden;
 
@@ -223,14 +245,11 @@ input[type="radio"]:checked + label p {
 	left: 0;
 }
 
-/* front pane, placed above back */
 .front {
 	z-index: 2;
-	/* for firefox 31 */
 	transform: rotateY(0deg);
 }
 
-/* back, initially hidden pane */
 .back {
 	transform: rotateY(180deg);
 }
@@ -249,7 +268,6 @@ input[type="radio"]:checked + label p {
 
 #modal {
   position:absolute;
-  background:url(tint20.png) 0 0 repeat;
   background:rgba(0,0,0,0.2);
   border-radius:14px;
   padding:8px;
