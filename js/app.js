@@ -1,4 +1,3 @@
-
 var locations = [ 
   { name: "Airplane",
     roles: [ "1st Class Passenger",
